@@ -1,13 +1,13 @@
 const express=require('express')
 const app=express();
 const port=2000
-const router=require('./router/router')
+const router=require('./router/customers')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use('/router',router)
+app.use('/api/customers',router)
 
-app.get('/',(req,res)=>{
+app.get('/api',(req,res)=>{
     res.send("hello mysql and node.js Express")
 })
 

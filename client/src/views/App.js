@@ -8,6 +8,7 @@ import TableBody from'@material-ui/core/TableBody'
 import Paper from '@material-ui/core/Paper'
 import {makeStyles} from '@material-ui/core/styles'
 import CircularProgress from'@material-ui/core/CircularProgress'
+import CustomerAdd from'./components/Customer/CustomerAdd'
 import axios from'axios'
 
 const useStyle=makeStyles({
@@ -30,7 +31,7 @@ function App() {
   
   const [completed,setCompleted]=useState({progress:0})
   const [customer,setCustomer]=useState([])
-
+  const [reset,setReset]=useState(true)
   const progressFunc =()=>{
 
    if(completed.progress<=100){
@@ -47,12 +48,13 @@ function App() {
     }, 150);
     axios
     .get('/api/customers')
-    .then(res=>setCustomer(res.data))
+    .then(res=>{setCustomer(res.data)
+               console.log(customer)})
     .catch(err=>console.log(err))
     completed.progress=0
     clearInterval(inter)
     
-  }, [])
+  }, [reset])
 
   
 
@@ -60,8 +62,6 @@ function App() {
   const classes =useStyle();
   return (
     <Suspense fallback={(<div>loading....</div>)}>
-    
-     
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
@@ -75,10 +75,8 @@ function App() {
                 <TableCell>직업</TableCell>
               </TableRow>
           </TableHead>
-
           <TableBody>
-            
-            {customer.map((value,index)=><Customer key={index} number={index+1} id={value.id} name={value.name} img={value.img} birth={value.birth} gender={value.gender} job={value.job} />)}
+            {customer.map((value,index)=><Customer key={index} number={index+1} id={value.id} name={value.name} img={value.image} birthday={value.birthday} gender={value.gender} job={value.job} />)}
             <TableRow>
               <TableCell colSpan="6" align="center">
                   <CircularProgress className={classes.progress} variant="determinate" value={completed.progress}/>
@@ -87,6 +85,7 @@ function App() {
           </TableBody>
         </Table>
       </Paper>
+      <CustomerAdd reset={reset} setReset={setReset}/>
     </Suspense>
    
   );

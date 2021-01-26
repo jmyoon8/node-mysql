@@ -12,10 +12,10 @@ function Customer(props) {
        <TableRow>
            <TableCell>{props.number}</TableCell>
            <TableCell>{props.id}</TableCell>
-           <TableCell><img src={props.img}/></TableCell>
+           <TableCell><img style={{width:'50px', height:'50px'}} src={props.img}/></TableCell>
            <TableCell>{props.gender}</TableCell>
            <TableCell>{props.name}</TableCell>
-           <TableCell>{props.gender}</TableCell>
+           <TableCell>{props.birthday}</TableCell>
            <TableCell>{props.job}</TableCell>
        </TableRow>
     )

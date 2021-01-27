@@ -9,6 +9,8 @@ import Paper from '@material-ui/core/Paper'
 import {makeStyles} from '@material-ui/core/styles'
 import CircularProgress from'@material-ui/core/CircularProgress'
 import CustomerAdd from'./components/Customer/CustomerAdd'
+
+
 import axios from'axios'
 
 const useStyle=makeStyles({
@@ -28,7 +30,10 @@ const useStyle=makeStyles({
 
 function App() {
 
+  //게시판 페이징
   
+
+
   const [completed,setCompleted]=useState({progress:0})
   const [customer,setCustomer]=useState([])
   const [reset,setReset]=useState(true)
@@ -73,10 +78,19 @@ function App() {
                 <TableCell>이름</TableCell>
                 <TableCell>생일</TableCell>
                 <TableCell>직업</TableCell>
+                <TableCell>기능</TableCell>
               </TableRow>
           </TableHead>
           <TableBody>
-            {customer.map((value,index)=><Customer key={index} number={index+1} id={value.id} name={value.name} img={value.image} birthday={value.birthday} gender={value.gender} job={value.job} />)}
+            {customer.map((value,index)=>
+              
+                <Customer key={index} number={index+1}
+                          id={value.id} name={value.name}
+                          img={value.image} birthday={value.birthday}
+                          gender={value.gender} job={value.job}
+                          reset={reset} setReset={setReset}
+                          />
+            )}
             <TableRow>
               <TableCell colSpan="6" align="center">
                   <CircularProgress className={classes.progress} variant="determinate" value={completed.progress}/>
@@ -85,7 +99,9 @@ function App() {
           </TableBody>
         </Table>
       </Paper>
+      <div style={{display:'flex',flexDirection:'column', alignItems:'center',width:'100%'}} >
       <CustomerAdd reset={reset} setReset={setReset}/>
+      </div>
     </Suspense>
    
   );

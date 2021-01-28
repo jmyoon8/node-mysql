@@ -3,36 +3,35 @@ const app=express()
 const mysql=require('../config/database')
 const customers=express.Router()
 const bs=require('../models/BoardService')
-customers.get('/',async (req,res)=>{
+customers.get('/customerBoard',async (req,res)=>{
         
         //게시판 페이징 처리
         //게시판 페이징
         let cnt=0               //총글수
-        let pageSize=2         //한 페이지당 출력한 글 갯수
+        let pageSize=5         //한 페이지당 출력한 글 갯수
         let number=0;           //화면에 뿌려줄 글번호(절대적 number)
         let start=0             //현재 페이지 시작 글번호
         let end =0              //현재 페이지 마지막 글번호
         
         let pageCount=0         //총 페이지 갯수
-        let pageBlock=5         //한 블럭당 페이징 겟수
+        let pageBlock=3         //한 블럭당 페이징 겟수
         let startPage=0         //한 블럭에 나올 첫페이지
         let endPage=0           //한 블럭에 나올 마지막 페이지
         
         let currentPage=0       //현제페이지 번호
 
-       let boardData=req.body 
+       
        bs.boardCnt((err, result) => {
+               
                 if (err)return console.log(err)
                 cnt = result[0].cnt
                 //현제페이지 설정
-                if(!boardData.currentPage){
-                        currentPage=1
-                }else{
-                        currentPage=boardData.currentPage
-                }
+               
+                currentPage=req.query.currentPage
+               
                 //총페이지 갯수 구하기
                 pageCount=(cnt/pageSize)+(cnt%pageSize>0?1:0)
-
+                pageCount=Math.floor(pageCount)        
                 if(currentPage==1){
                         start=0
                         //limit의 a,b중 a
@@ -41,13 +40,17 @@ customers.get('/',async (req,res)=>{
                 }
                 //보여질 글번호
                 number=cnt-(currentPage-1)*pageSize
+                
                 //한블럭의 시작페이지 번호
-                startPage=(currentPage/pageBlock)*pageBlock+1
+                startPage=Math.floor(currentPage/pageBlock)
+                startPage=startPage*pageBlock+1
                 if(currentPage%pageBlock===0)startPage-=pageBlock;
+
                 //한블럭의 마지막 페이지 번호
                 endPage=startPage+pageBlock-1
                 if(endPage>pageCount)endPage=pageCount
-
+                endPage=Math.floor(endPage)
+                
 
                 console.log("총글수 : ",cnt)
                 console.log("현제페이지 : ",currentPage)

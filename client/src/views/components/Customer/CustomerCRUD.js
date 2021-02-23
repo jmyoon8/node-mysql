@@ -125,13 +125,17 @@ function CustomerCRUD(props) {
           </TableHead>
           <TableBody>
             {paging.cnt>0?customer.map((value,index)=>
+            <>
                 <Customer key={index} number={paging.number-index}
                           id={value.id} name={value.name}
                           img={value.image} birthday={value.birthday}
                           gender={value.gender} job={value.job}
                           reset={reset} setReset={setReset}
                           />
+                          {value.image}
+             </>             
             ):"list가 없습니다."}
+            
             <TableRow>
               <TableCell colSpan="6" align="center">
                   <CircularProgress className={classes.progress} variant="determinate" value={completed.progress}/>

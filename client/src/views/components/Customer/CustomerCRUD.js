@@ -11,7 +11,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import CircularProgress from'@material-ui/core/CircularProgress'
 import axios from'axios'
 import { withRouter } from 'react-router-dom';
-
+import url from'../../../enum'
 
 const useStyle=makeStyles({
   root:{
@@ -52,7 +52,7 @@ function CustomerCRUD(props) {
       progressFunc()
     }, 150);
     async function get(){
-      await axios.get('/api/customers/customerBoard',{params:{currentPage:currentPage}})
+      await axios.get(url+'api/customers/customerBoard',{params:{currentPage:currentPage}})
       .then(res=>{
         //개시물 정보 가져오기
         setCustomer(res.data.list)

@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import Typography from'@material-ui/core/Typography'
 import Button from'@material-ui/core/Button'
-
+import url from'../../../enum'
 function CustomerDelete(props) {
     
     let reset=props.reset
@@ -14,7 +14,7 @@ function CustomerDelete(props) {
     const [modalOpen,setModalOpen]=useState(false)
     const deleteCustomer=(id)=>{
         console.log(id)
-        axios.delete('/api/customers/customerDelete/'+id).then(res=>{
+        axios.delete(url+'api/customers/customerDelete/'+id).then(res=>{
             reset?setReset(false):setReset(true)
             console.log(res.data)
             setModalOpen(false)

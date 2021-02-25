@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from'@material-ui/core/TextField'
 import Button from'@material-ui/core/Button'
-
+import url from'../../../enum'
 
 
 function CustomerAdd(props) {
@@ -53,7 +53,7 @@ function CustomerAdd(props) {
         const config ={
             headers:{'content-type':'multipart/form-data'}
         }
-        await axios.post('/api/customers/customerAdd',formData,config).then(res=>{
+        await axios.post(url+'api/customers/customerAdd',formData,config).then(res=>{
             console.log(res.data)
             //정보 추가제거
             reset?setReset(false):setReset(true)

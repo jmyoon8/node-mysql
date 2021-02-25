@@ -1,10 +1,9 @@
-let mysql=require('../config/database')
-
+let mysql=""
 if(process.env.NODE_ENV==='production'){
     mysql=require('../config/productDataBase')
-    
+}else{
+    mysql=require('../config/database')
 }
-
 let boardService={
 
      boardCnt:function(cb){

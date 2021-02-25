@@ -1,6 +1,9 @@
 const express=require('express')
 const app=express();
-const mysql=require('../config/database')
+let mysql=require('../config/database')
+if(process.env.NODE_ENV==='production'){
+        mysql=require('../config/productDataBase')
+}
 const customers=express.Router()
    
 const bs=require('../models/BoardService')

@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:2000",
+  "proxy": "https://manangeboard.herokuapp.com/",
   "name": "client",
   "version": "0.1.0",
   "private": true,

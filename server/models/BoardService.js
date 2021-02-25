@@ -1,4 +1,8 @@
-const mysql=require('../config/database')
+let mysql=require('../config/database')
+if(process.env.NODE_ENV==='production'){
+    mysql=require('../config/productDataBase')
+}
+
 let boardService={
 
      boardCnt:function(cb){

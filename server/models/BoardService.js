@@ -1,5 +1,4 @@
 const mysql=require('../config/database')
-
 let boardService={
 
      boardCnt:function(cb){

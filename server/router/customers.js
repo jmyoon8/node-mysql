@@ -1,9 +1,13 @@
 const express=require('express')
-const app=express()
+const app=express();
 const mysql=require('../config/database')
 const customers=express.Router()
+   
 const bs=require('../models/BoardService')
+
+
 customers.get('/customerBoard',async (req,res)=>{
+        console.log("타지냐?")
         
         //게시판 페이징 처리
         //게시판 페이징
@@ -22,7 +26,6 @@ customers.get('/customerBoard',async (req,res)=>{
 
        
        bs.boardCnt((err, result) => {
-               
                 if (err)return console.log(err)
                 cnt = result[0].cnt
                 //현제페이지 설정

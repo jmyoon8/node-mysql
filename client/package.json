@@ -1,9 +1,5 @@
 {
   "proxy": "http://localhost:2000",
-  "engines": {
-    "node": "15.6.0",
-    "npm": "7.4.0"
-  },
   "name": "client",
   "version": "0.1.0",
   "private": true,

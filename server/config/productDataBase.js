@@ -1,7 +1,7 @@
 ////database connection
 const mysql=require('mysql');
 
-const connecting=mysql.createConnection({
+var db_config = {
     // host:"myaws.cf7smk2karlz.ap-northeast-2.rds.amazonaws.com",
     // user:"admin",
     // password:"dbswowls12!",
@@ -9,10 +9,37 @@ const connecting=mysql.createConnection({
     user:'b12d0cdac395f7',
     password:"92f4f08b",
     database:"heroku_a5bf4153d4f0a48"
-})
-//연결완료
-connecting.connect();
+  };
+const connecting=mysql.createConnection(db_config)
 
-// mysql://b12d0cdac395f7:92f4f08b@us-cdbr-east-03.cleardb.com/heroku_a5bf4153d4f0a48?reconnect=true
+
+  
+  
+function handleDisconnect() {
+var connection;
+
+connection = mysql.createConnection(db_config); // Recreate the connection, since
+                                                // the old one cannot be reused.
+
+connection.connect(function(err) {              // The server is either down
+    if(err) {                                     // or restarting (takes a while sometimes).
+    console.log('error when connecting to db:', err);
+    setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+    }                                     // to avoid a hot loop, and to allow our node script to
+});                                     // process asynchronous requests in the meantime.
+                                        // If you're also serving http, display a 503 error.
+connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+    handleDisconnect();                         // lost due to either server restart, or a
+    } else {                                      // connnection idle timeout (the wait_timeout
+    throw err;                                  // server variable configures this)
+    }
+});
+}
+
+handleDisconnect();
+
+
 //그리고 exports
 module.exports=connecting

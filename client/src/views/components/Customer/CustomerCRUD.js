@@ -47,29 +47,31 @@ function CustomerCRUD(props) {
   }
   
 
-  useEffect( async () => {
+  useEffect(  () => {
     var inter=setInterval(() => {
       progressFunc()
     }, 150);
-    await axios.get('/api/customers/customerBoard',{params:{currentPage:currentPage}})
-    .then(res=>{
-      //개시물 정보 가져오기
-      setCustomer(res.data.list)
-      delete res.data.list
-      setPaging(res.data)
-      //페이징 처리정보 setting
-      paging.cnt=res.data.cnt
-      paging.pageCount=res.data.pageCount
-      paging.start=res.data.start
-      paging.number=res.data.number
-      paging.startPage=res.data.startPage
-      paging.endPage=res.data.endPage
-      console.log(paging)
-      console.log(currentPage)
-      console.log("페이징!")
-    })
-    .catch(err=>console.log(err))
-
+    async function get(){
+      await axios.get('/api/customers/customerBoard',{params:{currentPage:currentPage}})
+      .then(res=>{
+        //개시물 정보 가져오기
+        setCustomer(res.data.list)
+        delete res.data.list
+        setPaging(res.data)
+        //페이징 처리정보 setting
+        paging.cnt=res.data.cnt
+        paging.pageCount=res.data.pageCount
+        paging.start=res.data.start
+        paging.number=res.data.number
+        paging.startPage=res.data.startPage
+        paging.endPage=res.data.endPage
+        console.log(paging)
+        console.log(currentPage)
+        console.log("페이징!")
+      })
+      .catch(err=>console.log(err))
+    }
+    get()
     completed.progress=0
     clearInterval(inter)
     console.log("시작"+paging.startPage)

@@ -1,6 +1,7 @@
 const express=require('express')
 const app=express();
 let mysql=""
+
 if(process.env.NODE_ENV==='production'){
         mysql=require('../config/productDataBase')
 }else{

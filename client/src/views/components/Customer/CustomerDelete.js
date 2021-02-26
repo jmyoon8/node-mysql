@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import Typography from'@material-ui/core/Typography'
 import Button from'@material-ui/core/Button'
 import url from'../../../enum'
+
 function CustomerDelete(props) {
     
     let reset=props.reset

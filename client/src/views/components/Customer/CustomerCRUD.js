@@ -47,11 +47,11 @@ function CustomerCRUD(props) {
   }
   
 
-  useEffect(  () => {
+  useEffect( async () => {
     var inter=setInterval(() => {
       progressFunc()
     }, 150);
-    async function get(){
+   
       await axios.get(url+'api/customers/customerBoard',{params:{currentPage:currentPage}})
       .then(res=>{
         //개시물 정보 가져오기
@@ -70,8 +70,8 @@ function CustomerCRUD(props) {
         console.log("페이징!")
       })
       .catch(err=>console.log(err))
-    }
-    get()
+  
+ 
     completed.progress=0
     clearInterval(inter)
     console.log("시작"+paging.startPage)

@@ -13,7 +13,7 @@ const bs=require('../models/BoardService')
 
 
 customers.get('/customerBoard',async (req,res)=>{
-        console.log("타지냐?")
+       
         
         //게시판 페이징 처리
         //게시판 페이징

@@ -17,9 +17,10 @@ let connecting=mysql.createPool(db_config)
 
 
 
-//커넥션을 땡오면 트랜젝션을 사용 할 수있다.
-let connection=connecting.getConnection(async conn=>conn);
+//
 /*
+커넥션을 땡오면 트랜젝션을 사용 할 수있다.
+let connection=connecting.getConnection(async conn=>conn);
 커넥션에 sql 입력
 connection.query(sql.[파라미터],(err,result,field)=>{})
 트랜젝션 시작
